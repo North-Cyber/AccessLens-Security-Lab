@@ -28,7 +28,7 @@
 <main>
   <div class="eyebrow">Security research • local sandbox</div>
   <h1>AccessLens</h1>
-  <p>A deliberately vulnerable student-notes API. Investigate what happens when one student requests another student's private note, then write a test and secure the application.</p>
+  <p>A local security lab illustrating a remediated object-level authorization flaw. Explore how API access differs between authorized and unauthorized users.</p>
   <section class="panel">
     <div class="controls">
       <div><label for="user">Demo user</label><select id="user"><option value="practice-alex">Alex</option><option value="practice-jordan">Jordan</option></select></div>
@@ -39,9 +39,9 @@
     <button class="secondary" id="other">Try Jordan's note (2001)</button>
     <div class="status" id="status" aria-live="polite">Ready</div>
     <pre id="output" aria-label="API response">Choose a user and request a note.</pre>
-    <p class="note warning">All accounts and notes are fictional. This local-only app contains an intentional access-control flaw. Never deploy or aim these tests at a real service.</p>
+    <p class="note warning">All accounts, notes, and demo tokens are fictional. The previously demonstrated access-control flaw is patched. This is practice software, not production-ready; keep it local and do not test real services without permission.</p>
   </section>
-  <p class="note">Clue: Select <strong>Alex</strong>, then request note <strong>2001</strong>. Should Alex be allowed to read Jordan's note?</p>
+  <p class="note">Try selecting <strong>Alex</strong> and requesting note <strong>2001</strong>. The patched server should return <strong>403 Forbidden</strong>.</p>
 </main>
 <script>
   const user = document.querySelector('#user');
