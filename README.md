@@ -1,6 +1,6 @@
 # AccessLens — AI-Assisted API Security Investigation
 
-**Status:** Starter scaffold; investigation, security tests, remediation, and report are **not yet completed**.
+**Status:** Initial investigation completed. BOLA vulnerability reproduced and remediated, six automated API tests passing, and security finding report documented. AI-assisted test generation is planned.
 
 AccessLens is a **local, intentionally vulnerable practice app**. It uses fake student notes to teach broken object-level authorization (BOLA), a major API security risk. The purpose is to demonstrate how a product security engineer discovers a defect, proves impact, fixes it, and verifies the fix.
 
