@@ -69,6 +69,8 @@ An owner still receives `200 OK`; another authenticated demo user receives `403 
 
 **Recorded local results:** six tests passed, zero failed. Two denied-response checks additionally confirmed the `content` field was absent.
 
+**Automated CI verification:** The [first GitHub Actions workflow run](https://github.com/North-Cyber/AccessLens-Security-Lab/actions/runs/42447244405) also succeeded on Python 3.10 and Python 3.14. These are repeated executions of the same six scripted checks, not an independent full security audit.
+
 ## 9. Remaining limitations
 
 - Static demonstration tokens do not provide production-grade authentication.
