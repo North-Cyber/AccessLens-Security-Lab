@@ -64,7 +64,8 @@ The initial application scaffold and portions of the remediation, automated test
 - Hard-coded demo bearer tokens are not secure production authentication.
 - Only a small set of fictional users and API scenarios are covered.
 - More edge cases, response-body checks, and privacy-focused tests are needed.
-- Planned: repeatable CI testing, screenshots with sensitive UI cropped out, and human-validated AI-assisted test suggestions.
+- [GitHub Actions CI](.github/workflows/api-tests.yml) now runs the six API checks on pushes and pull requests; CI status should be reviewed separately from the six previously observed local passes.
+- Planned: redacted screenshots, stronger assertions, and human-validated AI-assisted test suggestions.
 
 ## Further reading
 
