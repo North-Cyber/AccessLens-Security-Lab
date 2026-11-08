@@ -74,7 +74,7 @@ An owner still receives `200 OK`; another authenticated demo user receives `403 
 - Static demonstration tokens do not provide production-grade authentication.
 - Tests exercise two fictional users and a small number of scenarios.
 - Checking for a missing `content` field is not a comprehensive privacy assessment.
-- Additional auth edge cases, response assertions, and CI checks would improve regression coverage.
+- Additional auth edge cases and response assertions would improve regression coverage. A GitHub Actions workflow has been added to run the current six checks automatically; its status is separate from the reported local run.
 - The application must remain local; it is not intended for public deployment.
 
 ## 10. AI assistance and personal verification
