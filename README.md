@@ -1,6 +1,8 @@
 # AccessLens — API Authorization Security Lab
 
-**Status:** First security investigation completed and remediated. Six API regression tests passed in local testing. **AI-assisted test generation is planned, not yet implemented.**
+[![API regression tests](https://github.com/North-Cyber/AccessLens-Security-Lab/actions/workflows/api-tests.yml/badge.svg)](https://github.com/North-Cyber/AccessLens-Security-Lab/actions/workflows/api-tests.yml)
+
+**Status:** First investigation remediated. Six API regression checks passed locally and in the first GitHub Actions run on Python 3.10 and 3.14. **AI-assisted test generation is planned, not implemented.**
 
 AccessLens is a **local-only** Python web application using fictional student notes. It demonstrates how a broken object-level authorization (BOLA/IDOR) weakness can expose another user's data, how to add a server-side ownership check, and how to retest that fix.
 
@@ -64,7 +66,7 @@ The initial application scaffold and portions of the remediation, automated test
 - Hard-coded demo bearer tokens are not secure production authentication.
 - Only a small set of fictional users and API scenarios are covered.
 - More edge cases, response-body checks, and privacy-focused tests are needed.
-- [GitHub Actions CI](.github/workflows/api-tests.yml) now runs the six API checks on pushes and pull requests; CI status should be reviewed separately from the six previously observed local passes.
+- [GitHub Actions CI](.github/workflows/api-tests.yml) runs the six API checks on pushes and pull requests for Python 3.10 and 3.14. [The first run passed in both versions](https://github.com/North-Cyber/AccessLens-Security-Lab/actions/runs/42447244405).
 - Planned: redacted screenshots, stronger assertions, and human-validated AI-assisted test suggestions.
 
 ## Further reading
