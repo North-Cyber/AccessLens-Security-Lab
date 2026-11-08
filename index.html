@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AccessLens | Security Investigation Lab</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, -apple-system, Segoe UI, sans-serif; }
+    body { margin: 0; background:#0c1220; color:#eff4ff; }
+    main { max-width:860px; margin:48px auto; padding:0 22px; }
+    .eyebrow { color:#b1c6fa; text-transform:uppercase; letter-spacing:.18em; font-size:12px; font-weight:800; }
+    h1 { font-size:clamp(2rem, 5vw, 3.6rem); line-height:1.08; margin:12px 0; }
+    p { color:#bac6dc; line-height:1.6; }
+    .panel { background:#171f32; border:1px solid #32415e; border-radius:16px; padding:25px; margin-top:25px; }
+    label { display:block; font-size:13px; margin:0 0 9px; color:#c9d6ef; font-weight:650; }
+    .controls { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    select,input { width:100%; box-sizing:border-box; border:1px solid #53617c; background:#10182a; color:white; border-radius:9px; padding:12px; font-size:15px; }
+    button { background:#a4bdff; border:0; padding:12px 17px; border-radius:9px; font-weight:800; color:#121b2b; cursor:pointer; margin:16px 10px 0 0; }
+    button.secondary { background:#25344f; color:#e7efff; border:1px solid #47608c; }
+    pre { background:#0e1627; border:1px solid #35445f; padding:18px; border-radius:12px; overflow:auto; min-height:130px; white-space:pre-wrap; }
+    .status { font-weight:800; margin-top:20px; }
+    .note { font-size:13px; }
+    .warning { color:#ffd29c; }
+    @media(max-width:640px) { .controls { grid-template-columns:1fr; } main {margin-top:28px;} }
+  </style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Security research • local sandbox</div>
+  <h1>AccessLens</h1>
+  <p>A deliberately vulnerable student-notes API. Investigate what happens when one student requests another student's private note, then write a test and secure the application.</p>
+  <section class="panel">
+    <div class="controls">
+      <div><label for="user">Demo user</label><select id="user"><option value="practice-alex">Alex</option><option value="practice-jordan">Jordan</option></select></div>
+      <div><label for="note">Requested note ID</label><input id="note" value="1001" inputmode="numeric" /></div>
+    </div>
+    <button id="send">Send API request</button>
+    <button class="secondary" id="own">Try Alex's note (1001)</button>
+    <button class="secondary" id="other">Try Jordan's note (2001)</button>
+    <div class="status" id="status" aria-live="polite">Ready</div>
+    <pre id="output" aria-label="API response">Choose a user and request a note.</pre>
+    <p class="note warning">All accounts and notes are fictional. This local-only app contains an intentional access-control flaw. Never deploy or aim these tests at a real service.</p>
+  </section>
+  <p class="note">Clue: Select <strong>Alex</strong>, then request note <strong>2001</strong>. Should Alex be allowed to read Jordan's note?</p>
+</main>
+<script>
+  const user = document.querySelector('#user');
+  const note = document.querySelector('#note');
+  const output = document.querySelector('#output');
+  const status = document.querySelector('#status');
+  async function sendRequest() {
+    status.textContent = 'Requesting…';
+    try {
+      const response = await fetch('/api/notes/' + encodeURIComponent(note.value.trim()), {
+        headers: { 'Authorization': 'Bearer ' + user.value }
+      });
+      const data = await response.json();
+      status.textContent = `HTTP ${response.status} ${response.statusText}`;
+      output.textContent = JSON.stringify(data, null, 2);
+    } catch (err) {
+      status.textContent = 'Request failed';
+      output.textContent = String(err);
+    }
+  }
+  document.querySelector('#send').addEventListener('click', sendRequest);
+  document.querySelector('#own').addEventListener('click', () => { note.value = '1001'; sendRequest(); });
+  document.querySelector('#other').addEventListener('click', () => { note.value = '2001'; sendRequest(); });
+</script>
+</body>
+</html>
