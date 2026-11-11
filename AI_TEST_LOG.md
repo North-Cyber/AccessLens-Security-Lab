@@ -1,6 +1,6 @@
 # AccessLens 2.0 — AI-assisted security investigation log
 
-**Status:** Investigation planned; results not yet recorded.
+**Status:** Locally verified by project owner; the specific data-leak hypothesis was not supported by these three tests.
 
 ## Purpose
 
@@ -19,15 +19,15 @@ Use AI to propose a **specific security hypothesis**, run a reproducible test ag
 4. Verify Jordan sees only `2001` and `2002`, owned by Jordan.
 5. Verify a request without a bearer token returns `401` without a `notes` field.
 
-**Result:** Not yet verified locally by the project owner.
+**Result (observed locally):** 3 of 3 checks passed. Alex received note IDs `1001` and `1002`, Jordan received `2001` and `2002`, and the request without an authentication token was rejected with no notes returned. No note-list privacy leak was found in these tested scenarios.
 
-**Evidence to record:** Actual terminal output, number of passed/failed checks, any unexpected response bodies, and any code changes required.
+**Evidence:** PowerShell screenshot shared after running `py privacy_audit.py` on the owner's Windows computer. The output states `RESULT: 3 checks passed. No list-level privacy leak found in these scenarios.` No unexpected responses or code changes were reported.
 
 **Interpretation reminder:** If the checks pass, the hypothesis was **not supported** by these scenarios. Do not report it as a vulnerability.
 
 ## Human verification
 
-The project owner will execute the code, review the output, and update this log with observed outcomes before claiming a new verified finding or adding a CI requirement.
+The project owner executed the script and reviewed the output on their local computer. These passing tests **refute the proposed weakness in the tested cases**; they are not a new confirmed vulnerability. CI can now repeat these checks alongside the original regression suite.
 
 ## Safety and limits
 
