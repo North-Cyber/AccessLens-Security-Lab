@@ -20,8 +20,8 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Check Python syntax
-        run: python -m py_compile server.py audit_starter.py
-      - name: Run six local API regression tests
+        run: python -m py_compile server.py audit_starter.py privacy_audit.py
+      - name: Run nine local API and privacy checks
         shell: bash
         run: |
           set -euo pipefail
@@ -37,3 +37,4 @@ jobs:
           done
 
           python audit_starter.py
+          python privacy_audit.py
