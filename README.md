@@ -73,7 +73,7 @@ The initial application scaffold and portions of the remediation, automated test
 - Hard-coded demo bearer tokens are not secure production authentication.
 - Only a small set of fictional users and API scenarios are covered.
 - Broader input-validation, response-body, and privacy-focused cases remain to be evaluated.
-- [GitHub Actions CI](.github/workflows/api-tests.yml) now runs **all nine** checks on pushes and pull requests for Python 3.10 and 3.14. [The initial six-check run passed in both versions](https://github.com/North-Cyber/AccessLens-Security-Lab/actions/runs/42447244405); the expanded workflow needs its own verified run.
+- [GitHub Actions CI](.github/workflows/api-tests.yml) runs **all nine** checks on pushes and pull requests using Python 3.10 and 3.14. [The nine-check workflow passed on both Python versions](https://github.com/North-Cyber/AccessLens-Security-Lab/actions/runs/43116177068).
 - Planned: redacted screenshots, stronger assertions, and human-validated AI-assisted test suggestions.
 
 ## Further reading
