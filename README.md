@@ -2,7 +2,7 @@
 
 [![API regression tests](https://github.com/North-Cyber/AccessLens-Security-Lab/actions/workflows/api-tests.yml/badge.svg)](https://github.com/North-Cyber/AccessLens-Security-Lab/actions/workflows/api-tests.yml)
 
-**Status:** First investigation remediated. Six API regression checks passed locally and in the first GitHub Actions run on Python 3.10 and 3.14. **AI-assisted test generation is planned, not implemented.**
+**Status:** Finding 001 remediated; six API checks passed locally and on GitHub Actions. Three AI-suggested privacy checks also passed locally. **Automatic AI test generation is planned, not implemented.**
 
 AccessLens is a **local-only** Python web application using fictional student notes. It demonstrates how a broken object-level authorization (BOLA/IDOR) weakness can expose another user's data, how to add a server-side ownership check, and how to retest that fix.
 
@@ -15,7 +15,7 @@ AccessLens is a **local-only** Python web application using fictional student no
 - **Remediation:** An ownership check now returns `HTTP 403 Forbidden` when the requested note belongs to another authenticated demo user.
 - **Verification:** The browser investigation and six automated API tests checked access for both users, invalid credentials, and a missing note.
 
-Read the complete [Security Finding 001](FINDING-001.md) for evidence, impact, remediation, limitations, and the role AI played in the project.
+Read [Security Finding 001](FINDING-001.md) for the fixed BOLA issue, and [AI Investigation H-002](AI_TEST_LOG.md) for a separate AI-suggested privacy hypothesis that was **not confirmed** by testing.
 
 ## Run locally
 
@@ -30,6 +30,7 @@ Requirements: **Python 3.10+**, a browser, and no third-party packages.
 4. Keep the server running. Open a **second** terminal in the same folder and run:
    ```powershell
    py audit_starter.py
+   py privacy_audit.py
    ```
 5. Stop the server with **Ctrl+C**.
 
@@ -50,11 +51,17 @@ On macOS or Linux, use `python3` instead of `py`.
 
 The script also checks that two `403` responses omit a `content` field. These are **targeted checks**, not a comprehensive penetration test. Results were observed locally; do not interpret the passing tests as proof the entire application is secure.
 
+## AI-suggested privacy checks
+
+A second script, `privacy_audit.py`, tests whether the `/api/my-notes` endpoint leaks notes across accounts and whether a missing bearer token is rejected. The project owner ran it locally: **3 of 3 targeted checks passed**. This means **no flaw was demonstrated in those scenarios**, not that the API is proven secure. Details and human verification are in [AI_TEST_LOG.md](AI_TEST_LOG.md).
+
 ## Files
 
 - `server.py` — local Python API and server-side authorization check
 - `index.html` — browser interface for exploring notes and HTTP responses
 - `audit_starter.py` — six automated authorization and error-handling tests
+- `privacy_audit.py` — three local note-list privacy checks from an AI-suggested hypothesis
+- `AI_TEST_LOG.md` — hypothesis, test plan, observed results, and limitations
 - `FINDING-001.md` — completed security finding, remediation, and test results
 
 ## AI assistance and personal work
@@ -65,8 +72,8 @@ The initial application scaffold and portions of the remediation, automated test
 
 - Hard-coded demo bearer tokens are not secure production authentication.
 - Only a small set of fictional users and API scenarios are covered.
-- More edge cases, response-body checks, and privacy-focused tests are needed.
-- [GitHub Actions CI](.github/workflows/api-tests.yml) runs the six API checks on pushes and pull requests for Python 3.10 and 3.14. [The first run passed in both versions](https://github.com/North-Cyber/AccessLens-Security-Lab/actions/runs/42447244405).
+- Broader input-validation, response-body, and privacy-focused cases remain to be evaluated.
+- [GitHub Actions CI](.github/workflows/api-tests.yml) now runs **all nine** checks on pushes and pull requests for Python 3.10 and 3.14. [The initial six-check run passed in both versions](https://github.com/North-Cyber/AccessLens-Security-Lab/actions/runs/42447244405); the expanded workflow needs its own verified run.
 - Planned: redacted screenshots, stronger assertions, and human-validated AI-assisted test suggestions.
 
 ## Further reading
