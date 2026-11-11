@@ -29,6 +29,10 @@ Use AI to propose a **specific security hypothesis**, run a reproducible test ag
 
 The project owner executed the script and reviewed the output on their local computer. These passing tests **refute the proposed weakness in the tested cases**; they are not a new confirmed vulnerability. CI can now repeat these checks alongside the original regression suite.
 
+## Repeated verification in GitHub Actions
+
+The [nine-check CI run](https://github.com/North-Cyber/AccessLens-Security-Lab/actions/runs/43116177068) completed successfully on Python 3.10 and Python 3.14, running the six original API checks plus these three privacy checks. This is repeatable evidence for the tested scenarios, not confirmation of an exploitable finding.
+
 ## Safety and limits
 
 Run only against `127.0.0.1` with the fictional AccessLens users and demo tokens. Never point practice scripts at public systems without explicit authorization.
